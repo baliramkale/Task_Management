@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #eef2f7;
+        }
+        /* Sidebar */
+        
+        .sidebar {
+            position: fixed;
+            width: 240px;
+            height: 100%;
+            background-color: #343a40;
+            color: white;
+            padding-top: 20px;
+            transition: 0.3s;
+        }
+        
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar .list-group-item {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            transition: 0.3s;
+        }
+        
+        .sidebar .list-group-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Cards */
+        
+        .card-box {
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            transition: 0.3s;
+        }
+        
+        .card-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bg-primary {
+            background: #0d6efd;
+        }
+        
+        .bg-success {
+            background: #198754;
+        }
+        
+        .bg-warning {
+            background: #ffc107;
+            color: black;
+        }
+        /* Welcome */
+        
+        .welcome {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        /* Overlay */
+        
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        @media(max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h3>Task Manager</h3>
+
+        <div class="list-group">
+            <a href="{{url_for('dashboard')}}" class="list-group-item active">Dashboard</a>
+            <a href="{{url_for('addtask')}}" class="list-group-item">Add Task</a>
+            <a href="{{url_for('viewtask')}}" class="list-group-item">View Task</a>
+            <a href="{{url_for('history')}}" class="list-group-item">History</a>
+            <a href="/logout" class="list-group-item">
+                <button class="btn btn-danger w-100">Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Header -->
+        <div class="header d-flex justify-content-between align-items-center">
+            <button class="btn d-md-none" id="open-sidebar">☰</button>
+            <h4>Dashboard</h4>
+        </div>
+
+        <!-- Welcome -->
+        <div class="welcome">
+            <h3>Welcome 👋</h3>
+            <p>Manage your tasks easily and stay productive!</p>
+        </div>
+
+
+
+
+    </div>
+
+    <!-- JS (Improved but safe) -->
+    <script>
+        const openSidebar = document.getElementById("open-sidebar");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebar-overlay");
+
+        openSidebar.onclick = () => {
+            sidebar.classList.add("active");
+            overlay.classList.add("active");
+        }
+
+        overlay.onclick = () => {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        }
+    </script>
+
+</body>
+
+</html>
